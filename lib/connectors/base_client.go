@@ -29,6 +29,7 @@ type BaseClient interface {
 
 	SetInsecureSSL()
 	SetDebug()
+	AddRootCertificate(pemFilePath string)
 	SetClientCertificates(certs ...tls.Certificate)
 	SetBasicAuth(username string, password string)
 	SetHeader(name string, value string)
@@ -44,6 +45,10 @@ func (c *baseClient) SetInsecureSSL() {
 
 func (c *baseClient) SetDebug() {
 	c.restClient.SetDebug(true)
+}
+
+func (c *baseClient) AddRootCertificate(pemFilePath string) {
+	c.restClient.SetRootCertificate(pemFilePath)
 }
 
 func (c *baseClient) SetClientCertificates(certs ...tls.Certificate) {
